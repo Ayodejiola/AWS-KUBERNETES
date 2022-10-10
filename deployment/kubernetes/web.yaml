@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment            
+metadata:
+  name: web
+  namespace: development  
+spec:
+  replicas: 1                  
+  selector:
+    matchLabels:
+      app: web        
+  template:                      
+    metadata:
+      labels:                    
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: test-project_web:latest
+        imagePullPolicy: "IfNotPresent"
+        ports:
+          - containerPort: 80
+            protocol: TCP  
+            name: go-web
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
